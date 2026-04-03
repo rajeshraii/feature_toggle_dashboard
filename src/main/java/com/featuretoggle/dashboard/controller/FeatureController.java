@@ -40,7 +40,7 @@ public class FeatureController {
 
     @PutMapping("/{id}")
     public ResponseEntity<FeatureResponse> update(@PathVariable UUID id,
-                                                   @RequestBody @Valid FeatureRequest request) {
+            @RequestBody @Valid FeatureRequest request) {
         return ResponseEntity.ok(featureService.update(id, request));
     }
 
@@ -48,5 +48,11 @@ public class FeatureController {
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         featureService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{featureId}/check/{userId}")
+    public ResponseEntity<Boolean> checkRollout(@PathVariable UUID featureId,
+            @PathVariable String userId) {
+        return ResponseEntity.ok(featureService.isFeatureEnabledForUser(featureId, userId));
     }
 }
