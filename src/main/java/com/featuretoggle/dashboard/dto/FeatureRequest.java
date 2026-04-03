@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.util.UUID;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 @Data
 @NoArgsConstructor
@@ -21,4 +23,9 @@ public class FeatureRequest {
 
     @NotNull(message = "Environment ID is required")
     private UUID environmentId;
+
+    @Builder.Default
+    @Min(0)
+    @Max(100)
+    private int rolloutPercentage = 100;
 }
