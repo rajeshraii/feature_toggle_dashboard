@@ -16,6 +16,7 @@ public class FeatureResponse {
     private boolean enabled;
     private UUID environmentId;
     private String environmentName;
+    private int rolloutPercentage;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
