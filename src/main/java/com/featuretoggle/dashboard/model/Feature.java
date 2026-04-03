@@ -28,6 +28,10 @@ public class Feature {
     @Builder.Default
     private boolean enabled = false;
 
+    @Builder.Default
+    @Column(name = "rollout_percentage")
+    private int rolloutPercentage = 100;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "environment_id", nullable = false)
     private Environment environment;
