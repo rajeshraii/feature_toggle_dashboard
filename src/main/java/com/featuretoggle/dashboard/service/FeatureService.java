@@ -45,6 +45,7 @@ public class FeatureService {
                 .name(request.getName())
                 .description(request.getDescription())
                 .enabled(request.isEnabled())
+                .rolloutPercentage(request.getRolloutPercentage())
                 .environment(env)
                 .build();
 
@@ -69,6 +70,7 @@ public class FeatureService {
         feature.setDescription(request.getDescription());
         feature.setEnabled(request.isEnabled());
         feature.setEnvironment(env);
+        feature.setRolloutPercentage(request.getRolloutPercentage());
 
         return toResponse(featureRepository.save(feature));
     }
@@ -88,6 +90,7 @@ public class FeatureService {
                 .enabled(feature.isEnabled())
                 .environmentId(feature.getEnvironment().getId())
                 .environmentName(feature.getEnvironment().getName())
+                .rolloutPercentage(feature.getRolloutPercentage())
                 .createdAt(feature.getCreatedAt())
                 .updatedAt(feature.getUpdatedAt())
                 .build();
