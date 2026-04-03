@@ -82,6 +82,21 @@ public class FeatureService {
         featureRepository.deleteById(id);
     }
 
+    public boolean isFeatureEnabledForUser(UUID featureId, String userId) {
+        Feature feature = featureRepository.findById(featureId)
+                .orElseThrow(() -> new RuntimeException("Feature not found: " + featureId));
+
+        if (!feature.isEnabled())
+            return false;
+        if (feature.getRolloutPercentage() == 100)
+            return true;
+        if (feature.getRolloutPercentage() == 0)
+            return false;
+
+        int hash = Math.abs((featureId.toString() + userId).hashCode()) % 100;
+        return hash < feature.getRolloutPercentage();
+    }
+
     private FeatureResponse toResponse(Feature feature) {
         return FeatureResponse.builder()
                 .id(feature.getId())
